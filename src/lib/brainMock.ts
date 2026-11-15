@@ -1,4 +1,4 @@
-import type { BrainFlag, BrainTick } from '@/types/brain';
+import { parseTick, type AlertLevel, type BodySystems, type BrainFlag, type BrainTick, type FlagDetail, type Plans } from '@/types/brain';
 import type { DailyTelemetryLog, Metric, MetricId, TriageResult, ZoneId } from '@/types/health';
 import { ZONE_IDS } from '@/types/health';
 import { astronautById } from '@/data/astronauts';
@@ -7,6 +7,12 @@ import { triage, STATUS_RANK } from './triageEngine';
 import { getProtocol } from './protocols';
 import { effectiveLog, effectiveHistory, type Overrides, type WhatIfId } from './simulator';
 import type { EnvironmentId } from './environments';
+import nominalSample from '@/data/brainSamples/nominal.json';
+import sleepDeprivationSample from '@/data/brainSamples/sleep_deprivation.json';
+import hypovolemiaLikeSample from '@/data/brainSamples/hypovolemia_like.json';
+import sepsisLikeSample from '@/data/brainSamples/sepsis_like.json';
+import hypercapniaSample from '@/data/brainSamples/hypercapnia.json';
+import radiationStormSample from '@/data/brainSamples/radiation_storm.json';
 
 /**
  * Mock "brain": produces ticks with EXACTLY the backend contract, computed by the local triage engine.
@@ -57,6 +63,51 @@ function metricToFlag(m: Metric, zone: ZoneId): BrainFlag {
   };
 }
 
+/** Map the local triage engine's per-zone status onto the v0.6 `bodySystems` shape (no data / stale → green). */
+function localBodySystems(t: TriageResult): BodySystems {
+  const out = {} as Record<ZoneId, 'green' | 'yellow' | 'red'>;
+  for (const z of ZONE_IDS) {
+    const s = t.zones[z].status;
+    out[z] = s === 'red' ? 'red' : s === 'yellow' ? 'yellow' : 'green';
+  }
+  return out;
+}
+
+/** Map the already-computed brain-contract flags onto the v0.6 `flagDetails` shape. */
+function localFlagDetails(flags: BrainFlag[]): FlagDetail[] {
+  return flags.map((f) => ({
+    code: (f.metric ?? f.type).toUpperCase(),
+    severity: f.severity === 'critical' ? 'red' : 'yellow',
+    message: f.reason,
+    value: f.triggeredValue ?? null,
+    threshold: f.threshold ?? null,
+    evidenceRef: null,
+  }));
+}
+
+/** Deterministic local approximation of the brain's exercise/nutrition plan — not the real planning logic. */
+function localPlans(level: AlertLevel): Plans {
+  if (level === 'red') {
+    return {
+      exercise: { status: 'cancelled', reason: 'Exercise is cancelled while a critical flag is active (offline fallback).', sessions: [], targetMinutes: 150 },
+      nutrition: { status: 'monitor', targetKcal: null, hydration: 'increase fluids and monitor urine output' },
+    };
+  }
+  if (level === 'yellow') {
+    return {
+      exercise: { status: 'reduced', reason: 'Reduce workload while active flags are monitored (offline fallback).', sessions: [{ type: 'resistive', minutes: 75, note: 'Reduced session; reassess before continuing.' }], targetMinutes: 150 },
+      nutrition: { status: 'monitor', targetKcal: null, hydration: 'normal hydration' },
+    };
+  }
+  return {
+    exercise: {
+      status: 'normal', reason: 'Continue the planned ARED and aerobic schedule.', targetMinutes: 150,
+      sessions: [{ type: 'resistive', minutes: 45, note: 'ARED/resistive session.' }, { type: 'aerobic', minutes: 30, note: 'Aerobic conditioning.' }],
+    },
+    nutrition: { status: 'normal', targetKcal: null, hydration: 'normal hydration' },
+  };
+}
+
 export function tickFromTriage(t: TriageResult, log: DailyTelemetryLog, seq: number, env?: string): BrainTick {
   const seen = new Set<string>();
   const flags: BrainFlag[] = [];
@@ -89,6 +140,13 @@ export function tickFromTriage(t: TriageResult, log: DailyTelemetryLog, seq: num
     doctorRecommendation,
     steps: proto?.steps.map((s) => ({ text: s.text, durationMin: s.durationMin, escalation: s.isEscalation })),
     radiation_cumulative_msv: log.cumulativeDoseMsv,
+    // v0.6 contract fields — local approximation, computed from the same triage result, so the offline
+    // mock exercises the full brain contract even while no backend is connected.
+    doctorSource: 'fallback',
+    bodySystems: localBodySystems(t),
+    flagDetails: localFlagDetails(flags),
+    likelyConditions: [],
+    plans: localPlans(alertLevel),
   };
 }
 
@@ -115,31 +173,37 @@ export function buildMockTick(ctx: MockContext): BrainTick {
   return tickFromTriage(triage(a, log, hist), log, ctx.seq, ctx.envId);
 }
 
-/** Scripted replay for the standalone mock server: green → yellow → red (SpO₂ 98 → 93 → 89, HR rising, radiation spike). */
-const KEYS = [
-  { t: 0, spo2: 98, hr: 62, resp: 14, temp: 36.9, rad: 0.5 },
-  { t: 30, spo2: 97, hr: 64, resp: 14, temp: 36.9, rad: 0.5 },
-  { t: 45, spo2: 93, hr: 69, resp: 17, temp: 37.0, rad: 0.6 },
-  { t: 70, spo2: 92, hr: 71, resp: 17, temp: 37.1, rad: 1.6 },
-  { t: 85, spo2: 89, hr: 88, resp: 22, temp: 37.3, rad: 6.0 },
-  { t: 110, spo2: 89, hr: 90, resp: 22, temp: 37.3, rad: 6.0 },
-];
+/**
+ * Scripted replay for the standalone mock server: real astro-brain v0.6 ticks (src/data/brainSamples,
+ * generated in Task 1 by actually running the brain) replayed green → yellow → red, looping every
+ * `REPLAY_PERIOD` ticks. Unlike the hand-interpolated vitals this replaced, every tick carries the
+ * full v0.6 contract (bodySystems, flagDetails, likelyConditions, plans, news2Score, doctorSource).
+ */
+function sample(raw: unknown): BrainTick {
+  const t = parseTick(raw);
+  if (!t) throw new Error('[brainMock] bundled brain sample failed to validate against BrainTickSchema');
+  return t;
+}
+
+const GREEN_SAMPLES: BrainTick[] = [sample(nominalSample)];
+const YELLOW_SAMPLES: BrainTick[] = [sample(sleepDeprivationSample), sample(hypovolemiaLikeSample)];
+const RED_SAMPLES: BrainTick[] = [sample(sepsisLikeSample), sample(hypercapniaSample), sample(radiationStormSample)];
+
+const REPLAY_PERIOD = 120;
+const REPLAY_PHASE = REPLAY_PERIOD / 3; // 40 ticks green, 40 yellow, 40 red
+const ROTATE_EVERY = 5; // ticks before cycling to the next sample within a severity bucket
+
+function bucketFor(t: number): BrainTick[] {
+  if (t < REPLAY_PHASE) return GREEN_SAMPLES;
+  if (t < REPLAY_PHASE * 2) return YELLOW_SAMPLES;
+  return RED_SAMPLES;
+}
 
 export function scenarioTick(i: number): BrainTick {
-  const t = i % 120;
-  let k = KEYS.length - 2;
-  for (let j = 0; j < KEYS.length - 1; j++) if (t >= KEYS[j].t && t < KEYS[j + 1].t) { k = j; break; }
-  const A = KEYS[k];
-  const B = KEYS[k + 1];
-  const p = Math.min(1, Math.max(0, (t - A.t) / (B.t - A.t)));
-  const lerp = (x: number, y: number) => x + (y - x) * p;
-  const base = getLog('astro-01', 30);
-  const log: DailyTelemetryLog = {
-    ...base, pain: {}, symptoms: [], events: [],
-    spo2: Math.round(lerp(A.spo2, B.spo2)), hr: Math.round(lerp(A.hr, B.hr)), respRate: Math.round(lerp(A.resp, B.resp)),
-    coreTemp: Math.round(lerp(A.temp, B.temp) * 10) / 10, radiationMsvDay: Math.round(lerp(A.rad, B.rad) * 100) / 100,
-  };
-  return tickFromTriage(triage(astronautById('astro-01'), log, getHistory('astro-01', 30)), log, i, 'iss');
+  const t = i % REPLAY_PERIOD;
+  const bucket = bucketFor(t);
+  const base = bucket[Math.floor(t / ROTATE_EVERY) % bucket.length];
+  return { ...base, seq: i, timestamp: new Date().toISOString(), environment: 'iss' };
 }
 
 export const levelRank = (l: BrainTick['alertLevel']) => STATUS_RANK[l];
