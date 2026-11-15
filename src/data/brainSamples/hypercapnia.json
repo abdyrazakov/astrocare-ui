@@ -1,0 +1,150 @@
+{
+  "timestamp": "2026-11-14T10:00:00Z",
+  "alertLevel": "red",
+  "activeFlags": [
+    {
+      "type": "vitals",
+      "severity": "critical",
+      "reason": "Cabin ppCO2 8 mmHg is high; check the scrubber and ventilation, move to a better-ventilated module, reduce workload, and contact ground medical.",
+      "triggeredValue": 8.0,
+      "metric": "cabin_ppco2",
+      "unit": "mmHg",
+      "zone": "lungs",
+      "threshold": 7.6
+    }
+  ],
+  "rawVitals": {
+    "hr": 68,
+    "spo2": 98,
+    "temp_c": 36.7,
+    "resp_rate": 15,
+    "radiation_dose_rate": 20.0,
+    "bp_sys": 118,
+    "bp_dia": 76,
+    "bfo_dose_30day_mgy_eq": 12.0,
+    "radiation_dose_career_msv": 120.0,
+    "exercise_minutes_today": 120,
+    "required_exercise_minutes": 150,
+    "caloric_intake": 2600,
+    "caloric_target": 2800,
+    "sleep_hours": 7.5,
+    "mood_score": 8,
+    "cabin_ppco2_mmhg": 8.0,
+    "mission_day": 52,
+    "radiation_cumulative_msv": 120.0
+  },
+  "doctorRecommendation": "IMMEDIATE ACTION REQUIRED. Cabin carbon dioxide is high; check the scrubber, move to better ventilation, reduce workload, and contact ground medical. Onboard: Blood pressure cuff, Blood pressure monitor, Tylenol (Acetaminophen) 325 mg. Contact ground medical now.",
+  "seq": 3,
+  "astronautId": "ASTRO-01",
+  "steps": [
+    {
+      "text": "IMMEDIATE ACTION REQUIRED"
+    },
+    {
+      "text": "Cabin carbon dioxide is high; check the scrubber, move to better ventilation, reduce workload, and contact ground medical",
+      "escalation": true
+    },
+    {
+      "text": "Onboard: Blood pressure cuff, Blood pressure monitor, Tylenol (Acetaminophen) 325 mg"
+    },
+    {
+      "text": "Contact ground medical now.",
+      "escalation": true
+    }
+  ],
+  "likelyConditions": [
+    {
+      "code": "CO2_HEADACHE",
+      "label": "CO2-induced headache (EMCL ICL64 Headache \u2013 CO2)",
+      "confidence": 0.7,
+      "drivers": [
+        "CABIN_CO2_HIGH"
+      ],
+      "evidenceRef": "EMCL ICL64 Headache \u2013 CO2; CliFF RT p.8 \u2014 VERIFIED",
+      "phaseAdjusted": false,
+      "resources": [
+        {
+          "code": "BP_CUFF",
+          "name": "Blood pressure cuff",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "BP_MONITOR",
+          "name": "Blood pressure monitor",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "ACETAMINOPHEN_325MG",
+          "name": "Tylenol (Acetaminophen) 325 mg",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 4
+          },
+          "onboard": true
+        }
+      ],
+      "onboardCapability": {
+        "status": "full",
+        "missing": []
+      }
+    }
+  ],
+  "bodySystems": {
+    "brain": "green",
+    "eyes": "green",
+    "inner_ear": "green",
+    "heart": "green",
+    "lungs": "red",
+    "liver": "green",
+    "pancreas": "green",
+    "kidneys": "green",
+    "stomach_gi": "green",
+    "spine": "green",
+    "skeleton_upper": "green",
+    "skeleton_lower": "green",
+    "knees": "green",
+    "muscles_arms": "green",
+    "muscles_legs": "green",
+    "skin_immune": "green"
+  },
+  "news2Score": 0,
+  "flagDetails": [
+    {
+      "code": "CABIN_CO2_HIGH",
+      "severity": "red",
+      "message": "Cabin ppCO2 8 mmHg is high; check the scrubber and ventilation, move to a better-ventilated module, reduce workload, and contact ground medical.",
+      "value": 8.0,
+      "threshold": 7.6,
+      "evidenceRef": "ISS Flight Rule B17-5 / OCHMO-TB-004 \u2014 VERIFY"
+    }
+  ],
+  "doctorSource": "fallback",
+  "plans": {
+    "exercise": {
+      "status": "cancelled",
+      "reason": "Exercise is cancelled because of CABIN_CO2_HIGH.",
+      "sessions": [],
+      "targetMinutes": 150,
+      "evidenceRef": "NASA SP-20250000273; NTRS 20110016265 \u2014 prescription; plan bands DESIGN DECISION"
+    },
+    "nutrition": {
+      "status": "normal",
+      "targetKcal": 2800,
+      "hydration": "normal hydration",
+      "evidenceRef": "JSC-63555; hydration advice is DESIGN DECISION"
+    }
+  },
+  "missionDay": 52,
+  "radiation_cumulative_msv": 120.0
+}

@@ -22,6 +22,75 @@ export const StepSchema = z.object({
   escalation: z.boolean().optional(),
 });
 
+/** v0.6: brain → UI zone colours. Unknown zone keys are dropped rather than failing the whole tick. */
+export const BodySystemsSchema = z.preprocess((val) => {
+  if (val && typeof val === 'object' && !Array.isArray(val)) {
+    const allowed = new Set<string>(ZONE_IDS);
+    return Object.fromEntries(Object.entries(val as Record<string, unknown>).filter(([k]) => allowed.has(k)));
+  }
+  return val;
+}, z.record(z.enum(ZONE_IDS), z.enum(['green', 'yellow', 'red'])));
+
+export const FlagDetailSchema = z.object({
+  code: z.string(),
+  severity: z.enum(['yellow', 'red']),
+  message: z.string(),
+  value: z.number().nullable(),
+  threshold: z.number().nullable(),
+  evidenceRef: z.string().nullable(),
+});
+
+export const ConditionResourceSchema = z.object({
+  code: z.string(),
+  name: z.string().optional(),
+  category: z.string().optional(),
+  onboard: z.boolean().nullable(),
+  essentialUnits: z.object({ best: z.number(), worst: z.number() }).optional(),
+});
+
+export const OnboardCapabilitySchema = z.object({
+  status: z.enum(['full', 'partial', 'none', 'unknown', 'no_rt']),
+  missing: z.array(z.string()),
+});
+
+export const LikelyConditionSchema = z.object({
+  code: z.string(),
+  label: z.string(),
+  confidence: z.number().min(0).max(1),
+  drivers: z.array(z.string()),
+  evidenceRef: z.string().nullable().optional(),
+  phaseAdjusted: z.boolean().optional(),
+  resources: z.array(ConditionResourceSchema).optional(),
+  onboardCapability: OnboardCapabilitySchema.optional(),
+});
+
+export const ExerciseSessionSchema = z.object({
+  type: z.string(),
+  minutes: z.number(),
+  note: z.string().optional(),
+});
+
+export const ExercisePlanSchema = z.object({
+  status: z.enum(['normal', 'reduced', 'cancelled']),
+  reason: z.string(),
+  sessions: z.array(ExerciseSessionSchema),
+  targetMinutes: z.number(),
+  evidenceRef: z.string().optional(),
+});
+
+export const NutritionPlanSchema = z.object({
+  status: z.enum(['normal', 'increase', 'monitor']),
+  targetKcal: z.number().nullable(),
+  advice: z.array(z.string()).optional(),
+  hydration: z.string(),
+  evidenceRef: z.string().optional(),
+});
+
+export const PlansSchema = z.object({
+  exercise: ExercisePlanSchema,
+  nutrition: NutritionPlanSchema,
+});
+
 export const BrainTickSchema = z.object({
   timestamp: z.string(),
   alertLevel: z.enum(['green', 'yellow', 'red']),
@@ -46,12 +115,30 @@ export const BrainTickSchema = z.object({
   environment: z.string().optional(),
   steps: z.array(StepSchema).optional(),
   radiation_cumulative_msv: z.number().optional(),
+  // v0.6 brain contract — additive, all optional so pre-v0.6 ticks still parse.
+  news2Score: z.number().optional(),
+  doctorSource: z.enum(['llm', 'cache', 'fallback']).optional(),
+  bodySystems: BodySystemsSchema.optional(),
+  flagDetails: z.array(FlagDetailSchema).optional(),
+  likelyConditions: z.array(LikelyConditionSchema).optional(),
+  plans: PlansSchema.optional(),
+  medicalKit: z.array(z.string()).optional(),
+  missionPhase: z.string().optional(),
 });
 
 export type BrainFlag = z.infer<typeof FlagSchema>;
 export type BrainStep = z.infer<typeof StepSchema>;
+export type BodySystems = z.infer<typeof BodySystemsSchema>;
+export type FlagDetail = z.infer<typeof FlagDetailSchema>;
+export type ConditionResource = z.infer<typeof ConditionResourceSchema>;
+export type OnboardCapability = z.infer<typeof OnboardCapabilitySchema>;
+export type LikelyCondition = z.infer<typeof LikelyConditionSchema>;
+export type ExercisePlan = z.infer<typeof ExercisePlanSchema>;
+export type NutritionPlan = z.infer<typeof NutritionPlanSchema>;
+export type Plans = z.infer<typeof PlansSchema>;
 export type BrainTick = z.infer<typeof BrainTickSchema>;
 export type AlertLevel = BrainTick['alertLevel'];
+export type DoctorSource = NonNullable<BrainTick['doctorSource']>;
 
 export type ConnectionState = 'connecting' | 'live' | 'reconnecting' | 'offline';
 

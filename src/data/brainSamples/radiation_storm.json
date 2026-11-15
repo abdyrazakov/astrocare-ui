@@ -1,0 +1,334 @@
+{
+  "timestamp": "2026-11-14T10:00:00Z",
+  "alertLevel": "red",
+  "activeFlags": [
+    {
+      "type": "radiation",
+      "severity": "critical",
+      "reason": "Radiation dose rate 1500.0 \u00b5Sv/h is at or above the 1000 \u00b5Sv/h critical threshold; seek shielding immediately.",
+      "triggeredValue": 1500.0,
+      "metric": "radiation_dose_rate",
+      "unit": "\u00b5Sv/h",
+      "zone": "skin_immune",
+      "threshold": 1000.0
+    }
+  ],
+  "rawVitals": {
+    "hr": 68,
+    "spo2": 98,
+    "temp_c": 36.7,
+    "resp_rate": 15,
+    "radiation_dose_rate": 1500.0,
+    "bp_sys": 118,
+    "bp_dia": 76,
+    "bfo_dose_30day_mgy_eq": 12.0,
+    "radiation_dose_career_msv": 120.0,
+    "exercise_minutes_today": 120,
+    "required_exercise_minutes": 150,
+    "caloric_intake": 2600,
+    "caloric_target": 2800,
+    "sleep_hours": 7.5,
+    "mood_score": 8,
+    "mission_day": 52,
+    "radiation_cumulative_msv": 120.0
+  },
+  "doctorRecommendation": "IMMEDIATE ACTION REQUIRED. Radiation dose rate is critical; move to the most shielded area immediately. Onboard: Blood oximeter, Blood pressure cuff, Blood pressure monitor, ECG monitor, Ertapenem 1 g, IV administration set, IV catheter 18G/20G/22G, Pack of 12 ECG electrodes, Variable Oxygen System. Not onboard: Bacitracin 500 units/g, Dilaudid 2 mg/mL, IV fluid 1 L, Lidocaine 1% 10 mL, Motrin 400 mg, Needle 23G, Promethazine 25 mg/mL, Stethoscope, Syringe 3cc, Valium 5 mg/mL 2 mL, Zofran 8 mg \u2014 ground medical consult. Contact ground medical now.",
+  "seq": 4,
+  "astronautId": "ASTRO-01",
+  "steps": [
+    {
+      "text": "IMMEDIATE ACTION REQUIRED"
+    },
+    {
+      "text": "Radiation dose rate is critical; move to the most shielded area immediately"
+    },
+    {
+      "text": "Onboard: Blood oximeter, Blood pressure cuff, Blood pressure monitor, ECG monitor, Ertapenem 1 g, IV administration set, IV catheter 18G/20G/22G, Pack of 12 ECG electrodes, Variable Oxygen System"
+    },
+    {
+      "text": "Not onboard: Bacitracin 500 units/g, Dilaudid 2 mg/mL, IV fluid 1 L, Lidocaine 1% 10 mL, Motrin 400 mg, Needle 23G, Promethazine 25 mg/mL, Stethoscope, Syringe 3cc, Valium 5 mg/mL 2 mL, Zofran 8 mg \u2014 ground medical consult",
+      "escalation": true
+    },
+    {
+      "text": "Contact ground medical now.",
+      "escalation": true
+    }
+  ],
+  "likelyConditions": [
+    {
+      "code": "ACUTE_RADIATION_SYNDROME",
+      "label": "Acute radiation syndrome / radiation sickness",
+      "confidence": 0.61,
+      "drivers": [
+        "RADIATION_CRITICAL"
+      ],
+      "evidenceRef": "EMCL/IMM vocabulary; weights are prototype \u2014 VERIFIED",
+      "phaseAdjusted": false,
+      "resources": [
+        {
+          "code": "BACITRACIN_500U",
+          "name": "Bacitracin 500 units/g",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 0.25
+          },
+          "onboard": false
+        },
+        {
+          "code": "BLOOD_OXIMETER",
+          "name": "Blood oximeter",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "BP_CUFF",
+          "name": "Blood pressure cuff",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "BP_MONITOR",
+          "name": "Blood pressure monitor",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "HYDROMORPHONE_2MG",
+          "name": "Dilaudid 2 mg/mL",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 12
+          },
+          "onboard": false
+        },
+        {
+          "code": "ECG_MONITOR",
+          "name": "ECG monitor",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "ERTAPENEM_1G",
+          "name": "Ertapenem 1 g",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 3
+          },
+          "onboard": true
+        },
+        {
+          "code": "IV_ADMIN_SET",
+          "name": "IV administration set",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "IV_CATHETER",
+          "name": "IV catheter 18G/20G/22G",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "IV_FLUID_1L",
+          "name": "IV fluid 1 L",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 4
+          },
+          "onboard": false
+        },
+        {
+          "code": "LIDOCAINE_1PCT",
+          "name": "Lidocaine 1% 10 mL",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 3
+          },
+          "onboard": false
+        },
+        {
+          "code": "IBUPROFEN_400MG",
+          "name": "Motrin 400 mg",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 3,
+            "worst": 0
+          },
+          "onboard": false
+        },
+        {
+          "code": "NEEDLE_23G",
+          "name": "Needle 23G",
+          "category": "procedure",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 25
+          },
+          "onboard": false
+        },
+        {
+          "code": "ECG_ELECTRODES_12",
+          "name": "Pack of 12 ECG electrodes",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "PROMETHAZINE_25MG",
+          "name": "Promethazine 25 mg/mL",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 18
+          },
+          "onboard": false
+        },
+        {
+          "code": "STETHOSCOPE",
+          "name": "Stethoscope",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SYRINGE_3CC",
+          "name": "Syringe 3cc",
+          "category": "procedure",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 25
+          },
+          "onboard": false
+        },
+        {
+          "code": "VALIUM_5MG",
+          "name": "Valium 5 mg/mL 2 mL",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 2
+          },
+          "onboard": false
+        },
+        {
+          "code": "VARIABLE_OXYGEN_SYSTEM",
+          "name": "Variable Oxygen System",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "ONDANSETRON_8MG",
+          "name": "Zofran 8 mg",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 2,
+            "worst": 2
+          },
+          "onboard": false
+        }
+      ],
+      "onboardCapability": {
+        "status": "partial",
+        "missing": [
+          "BACITRACIN_500U",
+          "HYDROMORPHONE_2MG",
+          "IV_FLUID_1L",
+          "LIDOCAINE_1PCT",
+          "IBUPROFEN_400MG",
+          "NEEDLE_23G",
+          "PROMETHAZINE_25MG",
+          "STETHOSCOPE",
+          "SYRINGE_3CC",
+          "VALIUM_5MG",
+          "ONDANSETRON_8MG"
+        ]
+      }
+    }
+  ],
+  "bodySystems": {
+    "brain": "green",
+    "eyes": "green",
+    "inner_ear": "green",
+    "heart": "green",
+    "lungs": "green",
+    "liver": "green",
+    "pancreas": "green",
+    "kidneys": "green",
+    "stomach_gi": "yellow",
+    "spine": "green",
+    "skeleton_upper": "yellow",
+    "skeleton_lower": "yellow",
+    "knees": "green",
+    "muscles_arms": "green",
+    "muscles_legs": "green",
+    "skin_immune": "red"
+  },
+  "news2Score": 0,
+  "flagDetails": [
+    {
+      "code": "RADIATION_CRITICAL",
+      "severity": "red",
+      "message": "Radiation dose rate 1500.0 \u00b5Sv/h is at or above the 1000 \u00b5Sv/h critical threshold; seek shielding immediately.",
+      "value": 1500.0,
+      "threshold": 1000.0,
+      "evidenceRef": "Design thresholds; NOAA SWPC S2/S3; ISS 0.2\u20130.5 mSv/day \u2014 CONFLICT"
+    }
+  ],
+  "doctorSource": "fallback",
+  "plans": {
+    "exercise": {
+      "status": "cancelled",
+      "reason": "Exercise is cancelled because of ACUTE_RADIATION_SYNDROME.",
+      "sessions": [],
+      "targetMinutes": 150,
+      "evidenceRef": "NASA SP-20250000273; NTRS 20110016265 \u2014 prescription; plan bands DESIGN DECISION"
+    },
+    "nutrition": {
+      "status": "normal",
+      "targetKcal": 2800,
+      "hydration": "increase fluids and monitor urine output",
+      "evidenceRef": "JSC-63555; hydration advice is DESIGN DECISION"
+    }
+  },
+  "missionDay": 52,
+  "radiation_cumulative_msv": 120.0
+}

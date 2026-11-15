@@ -1,0 +1,1101 @@
+{
+  "timestamp": "2026-11-14T10:00:00Z",
+  "alertLevel": "yellow",
+  "activeFlags": [
+    {
+      "type": "vitals",
+      "severity": "warning",
+      "reason": "Systolic BP 85 mmHg is low (crossed 90 mmHg).",
+      "triggeredValue": 85,
+      "metric": "bp_sys",
+      "unit": "",
+      "zone": "heart",
+      "threshold": 90
+    },
+    {
+      "type": "vitals",
+      "severity": "warning",
+      "reason": "Heart rate 125 bpm is high (crossed 110 bpm).",
+      "triggeredValue": 125,
+      "metric": "hr",
+      "unit": "bpm",
+      "zone": "heart",
+      "threshold": 110
+    },
+    {
+      "type": "vitals",
+      "severity": "warning",
+      "reason": "NEWS2 total 5 is medium risk.",
+      "triggeredValue": 5,
+      "metric": "metric",
+      "unit": "",
+      "threshold": 5
+    }
+  ],
+  "rawVitals": {
+    "hr": 125,
+    "spo2": 98,
+    "temp_c": 36.7,
+    "resp_rate": 15,
+    "radiation_dose_rate": 20.0,
+    "bp_sys": 85,
+    "bp_dia": 55,
+    "bfo_dose_30day_mgy_eq": 12.0,
+    "radiation_dose_career_msv": 120.0,
+    "exercise_minutes_today": 120,
+    "required_exercise_minutes": 150,
+    "caloric_intake": 2600,
+    "caloric_target": 2800,
+    "sleep_hours": 7.5,
+    "mood_score": 8,
+    "mission_day": 52,
+    "radiation_cumulative_msv": 120.0
+  },
+  "doctorRecommendation": "Attention required. Blood pressure is low; have the astronaut sit or lie down and recheck shortly. Heart rate is high; have the astronaut rest and avoid exertion until it normalizes. Overall NEWS2 score is moderately elevated; increase monitoring frequency. Onboard: Variable Oxygen System, Blood oximeter, Blood pressure cuff, Blood pressure monitor, ECG monitor, Pack of 12 ECG electrodes, IV administration set, IV catheter 18G/20G/22G. Not onboard: Ambu bag and mask, Endotracheal stylet, Endotracheal tube 7.0/8.0, EtCO2 monitor, King supraglottic airway tube, Laryngoscope blade, Laryngoscope handle, Nasal airway 6/7 mm, Oral airway, PEEP valve, SGA cue card, Suction cartridge, Suction device, Suction device syringe, Suction tip (mouth), Suction tubing, endotracheal, T-adapter, VOS intubated-patient hardware, Adrenaline 1:10000 10 mL, IV fluid 1 L, Stethoscope, Ketamine 50 mg/mL 10 mL, Valium 5 mg/mL 2 mL, Needle 23G, Syringe 3cc, Syringe 10cc, Syringe 35cc \u2014 ground medical consult. Re-check in 15 minutes; contact ground medical if it persists.",
+  "seq": 6,
+  "astronautId": "ASTRO-01",
+  "steps": [
+    {
+      "text": "Attention required"
+    },
+    {
+      "text": "Blood pressure is low; have the astronaut sit or lie down and recheck shortly"
+    },
+    {
+      "text": "Heart rate is high; have the astronaut rest and avoid exertion until it normalizes"
+    },
+    {
+      "text": "Overall NEWS2 score is moderately elevated; increase monitoring frequency"
+    },
+    {
+      "text": "Onboard: Variable Oxygen System, Blood oximeter, Blood pressure cuff, Blood pressure monitor, ECG monitor, Pack of 12 ECG electrodes, IV administration set, IV catheter 18G/20G/22G"
+    },
+    {
+      "text": "Not onboard: Ambu bag and mask, Endotracheal stylet, Endotracheal tube 7.0/8.0, EtCO2 monitor, King supraglottic airway tube, Laryngoscope blade, Laryngoscope handle, Nasal airway 6/7 mm, Oral airway, PEEP valve, SGA cue card, Suction cartridge, Suction device, Suction device syringe, Suction tip (mouth), Suction tubing, endotracheal, T-adapter, VOS intubated-patient hardware, Adrenaline 1:10000 10 mL, IV fluid 1 L, Stethoscope, Ketamine 50 mg/mL 10 mL, Valium 5 mg/mL 2 mL, Needle 23G, Syringe 3cc, Syringe 10cc, Syringe 35cc \u2014 ground medical consult",
+      "escalation": true
+    },
+    {
+      "text": "Re-check in 15 minutes; contact ground medical if it persists.",
+      "escalation": true
+    }
+  ],
+  "likelyConditions": [
+    {
+      "code": "HYPOVOLEMIC_SHOCK",
+      "label": "Hypovolemic shock / acute hypovolemia (EMCL; ICL116)",
+      "confidence": 0.67,
+      "drivers": [
+        "BP_LOW",
+        "HR_HIGH"
+      ],
+      "evidenceRef": "EMCL Table 2; ICL116; SMEMCL 2011 \u2014 VERIFIED",
+      "phaseAdjusted": true,
+      "resources": [
+        {
+          "code": "AMBU_BAG_MASK",
+          "name": "Ambu bag and mask",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ENDOTRACHEAL_STYLET",
+          "name": "Endotracheal stylet",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ENDOTRACHEAL_TUBE",
+          "name": "Endotracheal tube 7.0/8.0",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ETCO2_MONITOR",
+          "name": "EtCO2 monitor",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "KING_SGA_TUBE",
+          "name": "King supraglottic airway tube",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "LARYNGOSCOPE_BLADE",
+          "name": "Laryngoscope blade",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "LARYNGOSCOPE_HANDLE",
+          "name": "Laryngoscope handle",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "NASAL_AIRWAY",
+          "name": "Nasal airway 6/7 mm",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ORAL_AIRWAY",
+          "name": "Oral airway",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "PEEP_VALVE",
+          "name": "PEEP valve",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SGA_CUE_CARD",
+          "name": "SGA cue card",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SUCTION_CARTRIDGE",
+          "name": "Suction cartridge",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SUCTION_DEVICE",
+          "name": "Suction device",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SUCTION_DEVICE_SYRINGE",
+          "name": "Suction device syringe",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SUCTION_TIP",
+          "name": "Suction tip (mouth)",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SUCTION_TUBING_ET",
+          "name": "Suction tubing, endotracheal",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "T_ADAPTER",
+          "name": "T-adapter",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "VARIABLE_OXYGEN_SYSTEM",
+          "name": "Variable Oxygen System",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "VOS_INTUBATED_HARDWARE",
+          "name": "VOS intubated-patient hardware",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ADRENALINE_1_10000",
+          "name": "Adrenaline 1:10000 10 mL",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 4
+          },
+          "onboard": false
+        },
+        {
+          "code": "BLOOD_OXIMETER",
+          "name": "Blood oximeter",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "BP_CUFF",
+          "name": "Blood pressure cuff",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "BP_MONITOR",
+          "name": "Blood pressure monitor",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "ECG_MONITOR",
+          "name": "ECG monitor",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "ECG_ELECTRODES_12",
+          "name": "Pack of 12 ECG electrodes",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "IV_ADMIN_SET",
+          "name": "IV administration set",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "IV_CATHETER",
+          "name": "IV catheter 18G/20G/22G",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "IV_FLUID_1L",
+          "name": "IV fluid 1 L",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 2,
+            "worst": 4
+          },
+          "onboard": false
+        },
+        {
+          "code": "STETHOSCOPE",
+          "name": "Stethoscope",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "KETAMINE_50MG",
+          "name": "Ketamine 50 mg/mL 10 mL",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 0.3
+          },
+          "onboard": false
+        },
+        {
+          "code": "VALIUM_5MG",
+          "name": "Valium 5 mg/mL 2 mL",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "NEEDLE_23G",
+          "name": "Needle 23G",
+          "category": "procedure",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 6
+          },
+          "onboard": false
+        },
+        {
+          "code": "SYRINGE_3CC",
+          "name": "Syringe 3cc",
+          "category": "procedure",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 6
+          },
+          "onboard": false
+        },
+        {
+          "code": "SYRINGE_10CC",
+          "name": "Syringe 10cc",
+          "category": "procedure",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SYRINGE_35CC",
+          "name": "Syringe 35cc",
+          "category": "procedure",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        }
+      ],
+      "onboardCapability": {
+        "status": "partial",
+        "missing": [
+          "AMBU_BAG_MASK",
+          "ENDOTRACHEAL_STYLET",
+          "ENDOTRACHEAL_TUBE",
+          "ETCO2_MONITOR",
+          "KING_SGA_TUBE",
+          "LARYNGOSCOPE_BLADE",
+          "LARYNGOSCOPE_HANDLE",
+          "NASAL_AIRWAY",
+          "ORAL_AIRWAY",
+          "PEEP_VALVE",
+          "SGA_CUE_CARD",
+          "SUCTION_CARTRIDGE",
+          "SUCTION_DEVICE",
+          "SUCTION_DEVICE_SYRINGE",
+          "SUCTION_TIP",
+          "SUCTION_TUBING_ET",
+          "T_ADAPTER",
+          "VOS_INTUBATED_HARDWARE",
+          "ADRENALINE_1_10000",
+          "IV_FLUID_1L",
+          "STETHOSCOPE",
+          "KETAMINE_50MG",
+          "VALIUM_5MG",
+          "NEEDLE_23G",
+          "SYRINGE_3CC",
+          "SYRINGE_10CC",
+          "SYRINGE_35CC"
+        ]
+      }
+    },
+    {
+      "code": "CARDIAC_ARRHYTHMIA",
+      "label": "De novo cardiac arrhythmia",
+      "confidence": 0.55,
+      "drivers": [
+        "HR_HIGH",
+        "BP_LOW"
+      ],
+      "evidenceRef": "SMEMCL 2011 priority condition \u2014 VERIFIED",
+      "phaseAdjusted": true,
+      "resources": [
+        {
+          "code": "ASPIRIN_325MG",
+          "name": "Aspirin 325 mg",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 3
+          },
+          "onboard": false
+        },
+        {
+          "code": "BLOOD_OXIMETER",
+          "name": "Blood oximeter",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "BP_CUFF",
+          "name": "Blood pressure cuff",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "BP_MONITOR",
+          "name": "Blood pressure monitor",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "ECG_MONITOR",
+          "name": "ECG monitor",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "METOPROLOL_50MG",
+          "name": "Lopressor (Metoprolol) 50 mg",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 12
+          },
+          "onboard": false
+        },
+        {
+          "code": "ECG_ELECTRODES_12",
+          "name": "Pack of 12 ECG electrodes",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "VARIABLE_OXYGEN_SYSTEM",
+          "name": "Variable Oxygen System",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": true
+        }
+      ],
+      "onboardCapability": {
+        "status": "partial",
+        "missing": [
+          "ASPIRIN_325MG",
+          "METOPROLOL_50MG"
+        ]
+      }
+    },
+    {
+      "code": "SEPSIS",
+      "label": "Sepsis",
+      "confidence": 0.4,
+      "drivers": [
+        "HR_HIGH",
+        "BP_LOW"
+      ],
+      "evidenceRef": "EMCL/IMM vocabulary; weights are prototype \u2014 VERIFIED",
+      "phaseAdjusted": true,
+      "resources": [
+        {
+          "code": "ADRENALINE_1_10000",
+          "name": "Adrenaline 1:10000 10 mL",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 4
+          },
+          "onboard": false
+        },
+        {
+          "code": "AMBU_BAG_MASK",
+          "name": "Ambu bag and mask",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ENDOTRACHEAL_STYLET",
+          "name": "Endotracheal stylet",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ENDOTRACHEAL_TUBE",
+          "name": "Endotracheal tube 7.0/8.0",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ETCO2_MONITOR",
+          "name": "EtCO2 monitor",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "KING_SGA_TUBE",
+          "name": "King supraglottic airway tube",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "LARYNGOSCOPE_BLADE",
+          "name": "Laryngoscope blade",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "LARYNGOSCOPE_HANDLE",
+          "name": "Laryngoscope handle",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "NASAL_AIRWAY",
+          "name": "Nasal airway 6/7 mm",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ORAL_AIRWAY",
+          "name": "Oral airway",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "PEEP_VALVE",
+          "name": "PEEP valve",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SGA_CUE_CARD",
+          "name": "SGA cue card",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SUCTION_CARTRIDGE",
+          "name": "Suction cartridge",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SUCTION_DEVICE",
+          "name": "Suction device",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SUCTION_DEVICE_SYRINGE",
+          "name": "Suction device syringe",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SUCTION_TIP",
+          "name": "Suction tip (mouth)",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SUCTION_TUBING_ET",
+          "name": "Suction tubing, endotracheal",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "T_ADAPTER",
+          "name": "T-adapter",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "VARIABLE_OXYGEN_SYSTEM",
+          "name": "Variable Oxygen System",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "VOS_INTUBATED_HARDWARE",
+          "name": "VOS intubated-patient hardware",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "BLOOD_OXIMETER",
+          "name": "Blood oximeter",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "BP_CUFF",
+          "name": "Blood pressure cuff",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "BP_MONITOR",
+          "name": "Blood pressure monitor",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "ECG_MONITOR",
+          "name": "ECG monitor",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "ECG_ELECTRODES_12",
+          "name": "Pack of 12 ECG electrodes",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "IV_ADMIN_SET",
+          "name": "IV administration set",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "IV_CATHETER",
+          "name": "IV catheter 18G/20G/22G",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "IV_FLUID_1L",
+          "name": "IV fluid 1 L",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 2,
+            "worst": 4
+          },
+          "onboard": false
+        },
+        {
+          "code": "STETHOSCOPE",
+          "name": "Stethoscope",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ULTRASOUND_GEL",
+          "name": "Ultrasound gel",
+          "category": "diagnostic",
+          "essentialUnits": {
+            "best": 2,
+            "worst": 2
+          },
+          "onboard": false
+        },
+        {
+          "code": "ULTRASOUND",
+          "name": "Ultrasound machine",
+          "category": "diagnostic",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ERTAPENEM_1G",
+          "name": "Ertapenem 1 g",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 3
+          },
+          "onboard": true
+        },
+        {
+          "code": "KETAMINE_50MG",
+          "name": "Ketamine 50 mg/mL 10 mL",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 0.3
+          },
+          "onboard": false
+        },
+        {
+          "code": "LIDOCAINE_1PCT",
+          "name": "Lidocaine 1% 10 mL",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "NEEDLE_23G",
+          "name": "Needle 23G",
+          "category": "procedure",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 6
+          },
+          "onboard": false
+        },
+        {
+          "code": "NEEDLE_25G",
+          "name": "Needle 25G",
+          "category": "procedure",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SYRINGE_3CC",
+          "name": "Syringe 3cc",
+          "category": "procedure",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 10
+          },
+          "onboard": false
+        },
+        {
+          "code": "SYRINGE_10CC",
+          "name": "Syringe 10cc",
+          "category": "procedure",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SYRINGE_35CC",
+          "name": "Syringe 35cc",
+          "category": "procedure",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ACETAMINOPHEN_325MG",
+          "name": "Tylenol (Acetaminophen) 325 mg",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 12,
+            "worst": 24
+          },
+          "onboard": true
+        },
+        {
+          "code": "VALIUM_5MG",
+          "name": "Valium 5 mg/mL 2 mL",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        }
+      ],
+      "onboardCapability": {
+        "status": "partial",
+        "missing": [
+          "ADRENALINE_1_10000",
+          "AMBU_BAG_MASK",
+          "ENDOTRACHEAL_STYLET",
+          "ENDOTRACHEAL_TUBE",
+          "ETCO2_MONITOR",
+          "KING_SGA_TUBE",
+          "LARYNGOSCOPE_BLADE",
+          "LARYNGOSCOPE_HANDLE",
+          "NASAL_AIRWAY",
+          "ORAL_AIRWAY",
+          "PEEP_VALVE",
+          "SGA_CUE_CARD",
+          "SUCTION_CARTRIDGE",
+          "SUCTION_DEVICE",
+          "SUCTION_DEVICE_SYRINGE",
+          "SUCTION_TIP",
+          "SUCTION_TUBING_ET",
+          "T_ADAPTER",
+          "VOS_INTUBATED_HARDWARE",
+          "IV_FLUID_1L",
+          "STETHOSCOPE",
+          "ULTRASOUND_GEL",
+          "ULTRASOUND",
+          "KETAMINE_50MG",
+          "LIDOCAINE_1PCT",
+          "NEEDLE_23G",
+          "NEEDLE_25G",
+          "SYRINGE_3CC",
+          "SYRINGE_10CC",
+          "SYRINGE_35CC",
+          "VALIUM_5MG"
+        ]
+      }
+    }
+  ],
+  "bodySystems": {
+    "brain": "green",
+    "eyes": "green",
+    "inner_ear": "green",
+    "heart": "yellow",
+    "lungs": "green",
+    "liver": "green",
+    "pancreas": "green",
+    "kidneys": "green",
+    "stomach_gi": "green",
+    "spine": "green",
+    "skeleton_upper": "green",
+    "skeleton_lower": "green",
+    "knees": "green",
+    "muscles_arms": "green",
+    "muscles_legs": "green",
+    "skin_immune": "green"
+  },
+  "news2Score": 5,
+  "flagDetails": [
+    {
+      "code": "BP_LOW",
+      "severity": "yellow",
+      "message": "Systolic BP 85 mmHg is low (crossed 90 mmHg).",
+      "value": 85,
+      "threshold": 90,
+      "evidenceRef": "RCP NEWS2 2017, Charts 1\u20132 (pp.29\u201330); flag colors are design choices"
+    },
+    {
+      "code": "HR_HIGH",
+      "severity": "yellow",
+      "message": "Heart rate 125 bpm is high (crossed 110 bpm).",
+      "value": 125,
+      "threshold": 110,
+      "evidenceRef": "RCP NEWS2 2017, Charts 1\u20132 (pp.29\u201330); flag colors are design choices"
+    },
+    {
+      "code": "NEWS2_MEDIUM",
+      "severity": "yellow",
+      "message": "NEWS2 total 5 is medium risk.",
+      "value": 5,
+      "threshold": 5,
+      "evidenceRef": "RCP NEWS2 2017, Charts 1\u20132 (pp.29\u201330); flag colors are design choices"
+    }
+  ],
+  "doctorSource": "fallback",
+  "plans": {
+    "exercise": {
+      "status": "cancelled",
+      "reason": "Exercise is cancelled because of CARDIAC_ARRHYTHMIA, HYPOVOLEMIC_SHOCK.",
+      "sessions": [],
+      "targetMinutes": 150,
+      "evidenceRef": "NASA SP-20250000273; NTRS 20110016265 \u2014 prescription; plan bands DESIGN DECISION"
+    },
+    "nutrition": {
+      "status": "normal",
+      "targetKcal": 2800,
+      "hydration": "increase fluids and monitor urine output",
+      "evidenceRef": "JSC-63555; hydration advice is DESIGN DECISION"
+    }
+  },
+  "missionDay": 52,
+  "radiation_cumulative_msv": 120.0
+}

@@ -1,0 +1,739 @@
+{
+  "timestamp": "2026-11-14T10:00:00Z",
+  "alertLevel": "red",
+  "activeFlags": [
+    {
+      "type": "vitals",
+      "severity": "warning",
+      "reason": "Respiratory rate 26/min is high (crossed 24/min).",
+      "triggeredValue": 26,
+      "metric": "resp_rate",
+      "unit": "/min",
+      "zone": "lungs",
+      "threshold": 24
+    },
+    {
+      "type": "vitals",
+      "severity": "warning",
+      "reason": "SpO2 93% is low (crossed 91%).",
+      "triggeredValue": 93,
+      "metric": "spo2",
+      "unit": "%",
+      "zone": "lungs",
+      "threshold": 91
+    },
+    {
+      "type": "vitals",
+      "severity": "warning",
+      "reason": "Heart rate 135 bpm is high (crossed 130 bpm).",
+      "triggeredValue": 135,
+      "metric": "hr",
+      "unit": "bpm",
+      "zone": "heart",
+      "threshold": 130
+    },
+    {
+      "type": "vitals",
+      "severity": "warning",
+      "reason": "Temperature 39.5 C is high (crossed 39 C).",
+      "triggeredValue": 39.5,
+      "metric": "temp_c",
+      "unit": "\u00b0C",
+      "zone": "skin_immune",
+      "threshold": 39.0
+    },
+    {
+      "type": "vitals",
+      "severity": "critical",
+      "reason": "NEWS2 total 10 is high risk (>= 7).",
+      "triggeredValue": 10,
+      "metric": "metric",
+      "unit": "",
+      "threshold": 7
+    }
+  ],
+  "rawVitals": {
+    "hr": 135,
+    "spo2": 93,
+    "temp_c": 39.5,
+    "resp_rate": 26,
+    "radiation_dose_rate": 20.0,
+    "bp_sys": 118,
+    "bp_dia": 76,
+    "bfo_dose_30day_mgy_eq": 12.0,
+    "radiation_dose_career_msv": 120.0,
+    "exercise_minutes_today": 120,
+    "required_exercise_minutes": 150,
+    "caloric_intake": 2600,
+    "caloric_target": 2800,
+    "sleep_hours": 7.5,
+    "mood_score": 8,
+    "mission_day": 52,
+    "radiation_cumulative_msv": 120.0
+  },
+  "doctorRecommendation": "IMMEDIATE ACTION REQUIRED. Overall NEWS2 score is critically elevated; treat as a medical emergency. Respiratory rate is elevated; have the astronaut slow breathing and rest. Oxygen saturation is low; check life support and consider supplemental oxygen. Heart rate is high; have the astronaut rest and avoid exertion until it normalizes. Onboard: Blood oximeter. Not onboard: Benzonatate 100 mg, Dextromethorphan 15 mg, Stethoscope, Zithromax (Azithromycin) 250 mg \u2014 ground medical consult. Contact ground medical now.",
+  "seq": 2,
+  "astronautId": "ASTRO-01",
+  "steps": [
+    {
+      "text": "IMMEDIATE ACTION REQUIRED"
+    },
+    {
+      "text": "Overall NEWS2 score is critically elevated; treat as a medical emergency"
+    },
+    {
+      "text": "Respiratory rate is elevated; have the astronaut slow breathing and rest"
+    },
+    {
+      "text": "Oxygen saturation is low; check life support and consider supplemental oxygen"
+    },
+    {
+      "text": "Heart rate is high; have the astronaut rest and avoid exertion until it normalizes"
+    },
+    {
+      "text": "Onboard: Blood oximeter"
+    },
+    {
+      "text": "Not onboard: Benzonatate 100 mg, Dextromethorphan 15 mg, Stethoscope, Zithromax (Azithromycin) 250 mg \u2014 ground medical consult",
+      "escalation": true
+    },
+    {
+      "text": "Contact ground medical now.",
+      "escalation": true
+    }
+  ],
+  "likelyConditions": [
+    {
+      "code": "RESPIRATORY_INFECTION_LOWER",
+      "label": "Lower respiratory tract infection (EMCL)",
+      "confidence": 1.0,
+      "drivers": [
+        "TEMP_HIGH",
+        "RESP_HIGH",
+        "SPO2_LOW",
+        "HR_HIGH"
+      ],
+      "evidenceRef": "EMCL Table 2; lower respiratory tract infection \u2014 VERIFIED",
+      "phaseAdjusted": false,
+      "resources": [
+        {
+          "code": "BENZONATATE_100MG",
+          "name": "Benzonatate 100 mg",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 10,
+            "worst": 20
+          },
+          "onboard": false
+        },
+        {
+          "code": "BLOOD_OXIMETER",
+          "name": "Blood oximeter",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "DEXTROMETHORPHAN_15MG",
+          "name": "Dextromethorphan 15 mg",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 10,
+            "worst": 20
+          },
+          "onboard": false
+        },
+        {
+          "code": "STETHOSCOPE",
+          "name": "Stethoscope",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "AZITHROMYCIN_250MG",
+          "name": "Zithromax (Azithromycin) 250 mg",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 6
+          },
+          "onboard": false
+        }
+      ],
+      "onboardCapability": {
+        "status": "partial",
+        "missing": [
+          "BENZONATATE_100MG",
+          "DEXTROMETHORPHAN_15MG",
+          "STETHOSCOPE",
+          "AZITHROMYCIN_250MG"
+        ]
+      }
+    },
+    {
+      "code": "SEPSIS",
+      "label": "Sepsis",
+      "confidence": 0.76,
+      "drivers": [
+        "TEMP_HIGH",
+        "HR_HIGH",
+        "RESP_HIGH",
+        "SPO2_LOW"
+      ],
+      "evidenceRef": "EMCL/IMM vocabulary; weights are prototype \u2014 VERIFIED",
+      "phaseAdjusted": true,
+      "resources": [
+        {
+          "code": "ADRENALINE_1_10000",
+          "name": "Adrenaline 1:10000 10 mL",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 4
+          },
+          "onboard": false
+        },
+        {
+          "code": "AMBU_BAG_MASK",
+          "name": "Ambu bag and mask",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ENDOTRACHEAL_STYLET",
+          "name": "Endotracheal stylet",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ENDOTRACHEAL_TUBE",
+          "name": "Endotracheal tube 7.0/8.0",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ETCO2_MONITOR",
+          "name": "EtCO2 monitor",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "KING_SGA_TUBE",
+          "name": "King supraglottic airway tube",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "LARYNGOSCOPE_BLADE",
+          "name": "Laryngoscope blade",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "LARYNGOSCOPE_HANDLE",
+          "name": "Laryngoscope handle",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "NASAL_AIRWAY",
+          "name": "Nasal airway 6/7 mm",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ORAL_AIRWAY",
+          "name": "Oral airway",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "PEEP_VALVE",
+          "name": "PEEP valve",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SGA_CUE_CARD",
+          "name": "SGA cue card",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SUCTION_CARTRIDGE",
+          "name": "Suction cartridge",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SUCTION_DEVICE",
+          "name": "Suction device",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SUCTION_DEVICE_SYRINGE",
+          "name": "Suction device syringe",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SUCTION_TIP",
+          "name": "Suction tip (mouth)",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SUCTION_TUBING_ET",
+          "name": "Suction tubing, endotracheal",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "T_ADAPTER",
+          "name": "T-adapter",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "VARIABLE_OXYGEN_SYSTEM",
+          "name": "Variable Oxygen System",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "VOS_INTUBATED_HARDWARE",
+          "name": "VOS intubated-patient hardware",
+          "category": "airway",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "BLOOD_OXIMETER",
+          "name": "Blood oximeter",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "BP_CUFF",
+          "name": "Blood pressure cuff",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "BP_MONITOR",
+          "name": "Blood pressure monitor",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "ECG_MONITOR",
+          "name": "ECG monitor",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "ECG_ELECTRODES_12",
+          "name": "Pack of 12 ECG electrodes",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "IV_ADMIN_SET",
+          "name": "IV administration set",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "IV_CATHETER",
+          "name": "IV catheter 18G/20G/22G",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": true
+        },
+        {
+          "code": "IV_FLUID_1L",
+          "name": "IV fluid 1 L",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 2,
+            "worst": 4
+          },
+          "onboard": false
+        },
+        {
+          "code": "STETHOSCOPE",
+          "name": "Stethoscope",
+          "category": "circulation",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ULTRASOUND_GEL",
+          "name": "Ultrasound gel",
+          "category": "diagnostic",
+          "essentialUnits": {
+            "best": 2,
+            "worst": 2
+          },
+          "onboard": false
+        },
+        {
+          "code": "ULTRASOUND",
+          "name": "Ultrasound machine",
+          "category": "diagnostic",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ERTAPENEM_1G",
+          "name": "Ertapenem 1 g",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 3
+          },
+          "onboard": true
+        },
+        {
+          "code": "KETAMINE_50MG",
+          "name": "Ketamine 50 mg/mL 10 mL",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 0.3
+          },
+          "onboard": false
+        },
+        {
+          "code": "LIDOCAINE_1PCT",
+          "name": "Lidocaine 1% 10 mL",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "NEEDLE_23G",
+          "name": "Needle 23G",
+          "category": "procedure",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 6
+          },
+          "onboard": false
+        },
+        {
+          "code": "NEEDLE_25G",
+          "name": "Needle 25G",
+          "category": "procedure",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SYRINGE_3CC",
+          "name": "Syringe 3cc",
+          "category": "procedure",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 10
+          },
+          "onboard": false
+        },
+        {
+          "code": "SYRINGE_10CC",
+          "name": "Syringe 10cc",
+          "category": "procedure",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "SYRINGE_35CC",
+          "name": "Syringe 35cc",
+          "category": "procedure",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        },
+        {
+          "code": "ACETAMINOPHEN_325MG",
+          "name": "Tylenol (Acetaminophen) 325 mg",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 12,
+            "worst": 24
+          },
+          "onboard": true
+        },
+        {
+          "code": "VALIUM_5MG",
+          "name": "Valium 5 mg/mL 2 mL",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 0,
+            "worst": 1
+          },
+          "onboard": false
+        }
+      ],
+      "onboardCapability": {
+        "status": "partial",
+        "missing": [
+          "ADRENALINE_1_10000",
+          "AMBU_BAG_MASK",
+          "ENDOTRACHEAL_STYLET",
+          "ENDOTRACHEAL_TUBE",
+          "ETCO2_MONITOR",
+          "KING_SGA_TUBE",
+          "LARYNGOSCOPE_BLADE",
+          "LARYNGOSCOPE_HANDLE",
+          "NASAL_AIRWAY",
+          "ORAL_AIRWAY",
+          "PEEP_VALVE",
+          "SGA_CUE_CARD",
+          "SUCTION_CARTRIDGE",
+          "SUCTION_DEVICE",
+          "SUCTION_DEVICE_SYRINGE",
+          "SUCTION_TIP",
+          "SUCTION_TUBING_ET",
+          "T_ADAPTER",
+          "VOS_INTUBATED_HARDWARE",
+          "IV_FLUID_1L",
+          "STETHOSCOPE",
+          "ULTRASOUND_GEL",
+          "ULTRASOUND",
+          "KETAMINE_50MG",
+          "LIDOCAINE_1PCT",
+          "NEEDLE_23G",
+          "NEEDLE_25G",
+          "SYRINGE_3CC",
+          "SYRINGE_10CC",
+          "SYRINGE_35CC",
+          "VALIUM_5MG"
+        ]
+      }
+    },
+    {
+      "code": "ALTITUDE_SICKNESS",
+      "label": "Altitude sickness / hypobaric hypoxia (EMCL)",
+      "confidence": 0.56,
+      "drivers": [
+        "SPO2_LOW",
+        "RESP_HIGH",
+        "HR_HIGH",
+        "TEMP_HIGH"
+      ],
+      "evidenceRef": "EMCL Table 2; altitude sickness \u2014 VERIFIED",
+      "phaseAdjusted": false,
+      "resources": [],
+      "onboardCapability": {
+        "status": "no_rt",
+        "missing": []
+      }
+    }
+  ],
+  "bodySystems": {
+    "brain": "yellow",
+    "eyes": "green",
+    "inner_ear": "green",
+    "heart": "yellow",
+    "lungs": "yellow",
+    "liver": "green",
+    "pancreas": "green",
+    "kidneys": "green",
+    "stomach_gi": "green",
+    "spine": "green",
+    "skeleton_upper": "green",
+    "skeleton_lower": "green",
+    "knees": "green",
+    "muscles_arms": "green",
+    "muscles_legs": "green",
+    "skin_immune": "yellow"
+  },
+  "news2Score": 10,
+  "flagDetails": [
+    {
+      "code": "RESP_HIGH",
+      "severity": "yellow",
+      "message": "Respiratory rate 26/min is high (crossed 24/min).",
+      "value": 26,
+      "threshold": 24,
+      "evidenceRef": "RCP NEWS2 2017, Charts 1\u20132 (pp.29\u201330); flag colors are design choices"
+    },
+    {
+      "code": "SPO2_LOW",
+      "severity": "yellow",
+      "message": "SpO2 93% is low (crossed 91%).",
+      "value": 93,
+      "threshold": 91,
+      "evidenceRef": "RCP NEWS2 2017, Charts 1\u20132 (pp.29\u201330); flag colors are design choices"
+    },
+    {
+      "code": "HR_HIGH",
+      "severity": "yellow",
+      "message": "Heart rate 135 bpm is high (crossed 130 bpm).",
+      "value": 135,
+      "threshold": 130,
+      "evidenceRef": "RCP NEWS2 2017, Charts 1\u20132 (pp.29\u201330); flag colors are design choices"
+    },
+    {
+      "code": "TEMP_HIGH",
+      "severity": "yellow",
+      "message": "Temperature 39.5 C is high (crossed 39 C).",
+      "value": 39.5,
+      "threshold": 39.0,
+      "evidenceRef": "RCP NEWS2 2017, Charts 1\u20132 (pp.29\u201330); flag colors are design choices"
+    },
+    {
+      "code": "NEWS2_HIGH",
+      "severity": "red",
+      "message": "NEWS2 total 10 is high risk (>= 7).",
+      "value": 10,
+      "threshold": 7,
+      "evidenceRef": "RCP NEWS2 2017, Charts 1\u20132 (pp.29\u201330); flag colors are design choices"
+    }
+  ],
+  "doctorSource": "fallback",
+  "plans": {
+    "exercise": {
+      "status": "cancelled",
+      "reason": "Exercise is cancelled because of RESPIRATORY_INFECTION_LOWER, SEPSIS.",
+      "sessions": [],
+      "targetMinutes": 150,
+      "evidenceRef": "NASA SP-20250000273; NTRS 20110016265 \u2014 prescription; plan bands DESIGN DECISION"
+    },
+    "nutrition": {
+      "status": "normal",
+      "targetKcal": 2800,
+      "hydration": "increase fluids and monitor urine output",
+      "evidenceRef": "JSC-63555; hydration advice is DESIGN DECISION"
+    }
+  },
+  "missionDay": 52,
+  "radiation_cumulative_msv": 120.0
+}

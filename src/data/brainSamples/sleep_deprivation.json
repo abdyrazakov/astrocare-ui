@@ -1,0 +1,134 @@
+{
+  "timestamp": "2026-11-14T10:00:00Z",
+  "alertLevel": "yellow",
+  "activeFlags": [
+    {
+      "type": "sleep",
+      "severity": "warning",
+      "reason": "Only 4 h of sleep; minimum is 6 h.",
+      "triggeredValue": 4.0,
+      "metric": "sleep_hours",
+      "unit": "h",
+      "zone": "brain",
+      "threshold": 6.0
+    }
+  ],
+  "rawVitals": {
+    "hr": 68,
+    "spo2": 98,
+    "temp_c": 36.7,
+    "resp_rate": 15,
+    "radiation_dose_rate": 20.0,
+    "bp_sys": 118,
+    "bp_dia": 76,
+    "bfo_dose_30day_mgy_eq": 12.0,
+    "radiation_dose_career_msv": 120.0,
+    "exercise_minutes_today": 120,
+    "required_exercise_minutes": 150,
+    "caloric_intake": 2600,
+    "caloric_target": 2800,
+    "sleep_hours": 4.0,
+    "mood_score": 8,
+    "mission_day": 52,
+    "radiation_cumulative_msv": 120.0
+  },
+  "doctorRecommendation": "Attention required. Sleep was below 6 hours; schedule a rest period before demanding tasks. Onboard: Zolpidem (Ambien) 5 mg. Re-check in 15 minutes; contact ground medical if it persists.",
+  "seq": 5,
+  "astronautId": "ASTRO-01",
+  "steps": [
+    {
+      "text": "Attention required"
+    },
+    {
+      "text": "Sleep was below 6 hours; schedule a rest period before demanding tasks"
+    },
+    {
+      "text": "Onboard: Zolpidem (Ambien) 5 mg"
+    },
+    {
+      "text": "Re-check in 15 minutes; contact ground medical if it persists.",
+      "escalation": true
+    }
+  ],
+  "likelyConditions": [
+    {
+      "code": "SLEEP_DISORDER",
+      "label": "Sleep disorder",
+      "confidence": 0.74,
+      "drivers": [
+        "SLEEP_DEFICIT"
+      ],
+      "evidenceRef": "NASA IMM overview; weights are prototype \u2014 VERIFIED",
+      "phaseAdjusted": true,
+      "resources": [
+        {
+          "code": "ZOLPIDEM_5MG",
+          "name": "Zolpidem (Ambien) 5 mg",
+          "category": "medication",
+          "essentialUnits": {
+            "best": 1,
+            "worst": 2
+          },
+          "onboard": true
+        }
+      ],
+      "onboardCapability": {
+        "status": "full",
+        "missing": []
+      }
+    }
+  ],
+  "bodySystems": {
+    "brain": "yellow",
+    "eyes": "green",
+    "inner_ear": "green",
+    "heart": "green",
+    "lungs": "green",
+    "liver": "green",
+    "pancreas": "green",
+    "kidneys": "green",
+    "stomach_gi": "green",
+    "spine": "green",
+    "skeleton_upper": "green",
+    "skeleton_lower": "green",
+    "knees": "green",
+    "muscles_arms": "green",
+    "muscles_legs": "green",
+    "skin_immune": "green"
+  },
+  "news2Score": 0,
+  "flagDetails": [
+    {
+      "code": "SLEEP_DEFICIT",
+      "severity": "yellow",
+      "message": "Only 4 h of sleep; minimum is 6 h.",
+      "value": 4.0,
+      "threshold": 6.0,
+      "evidenceRef": "Barger et al. 2014, Lancet Neurol, Table 2; 6 h cutoff is a design choice"
+    }
+  ],
+  "doctorSource": "fallback",
+  "plans": {
+    "exercise": {
+      "status": "reduced",
+      "reason": "Reduce workload while active fatigue or exposure concerns are monitored.",
+      "sessions": [
+        {
+          "type": "resistive",
+          "minutes": 75,
+          "note": "Reduced session; reassess before continuing."
+        }
+      ],
+      "targetMinutes": 150,
+      "evidenceRef": "NASA SP-20250000273; NTRS 20110016265 \u2014 prescription; plan bands DESIGN DECISION"
+    },
+    "nutrition": {
+      "status": "normal",
+      "targetKcal": 2800,
+      "hydration": "normal hydration",
+      "evidenceRef": "JSC-63555; hydration advice is DESIGN DECISION"
+    }
+  },
+  "missionDay": 52,
+  "radiation_cumulative_msv": 120.0
+}
