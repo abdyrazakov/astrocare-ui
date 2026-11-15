@@ -93,7 +93,10 @@ export function HealthHero({ d }: { d: ReturnType<typeof useDashboard> }) {
           <span className="num text-xl font-semibold" style={{ color: lost ? '#64748B' : d.fresh.state === 'delayed' ? '#F59E0B' : '#F5F7FA' }}>
             {Number.isFinite(d.fresh.ageSec) ? `${fmtAgo(Math.max(0, d.fresh.ageSec))} ago` : '—'}
           </span>
-          <span className="text-xs text-muted">{lost ? 'signal lost' : d.fresh.state === 'delayed' ? 'delayed' : 'live'}</span>
+          <span className="text-xs text-muted">
+            {lost ? 'signal lost' : d.fresh.state === 'delayed' ? 'delayed' : 'live'}
+            {d.tick?.doctorSource && <span className="ml-1 text-slate-500" title="Where the doctor recommendation came from">· {d.tick.doctorSource}</span>}
+          </span>
         </div>
       </div>
     </section>

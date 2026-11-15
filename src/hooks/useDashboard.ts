@@ -3,11 +3,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { useHealthStore } from '@/store/useHealthStore';
 import { astronautById } from '@/data/astronauts';
 import { effectiveLog, effectiveHistory } from '@/lib/simulator';
-import { triage, worst } from '@/lib/triageEngine';
+import { triage } from '@/lib/triageEngine';
 import { allScores } from '@/lib/scores';
 import { ZONE_IDS, type TriageStatus, type ZoneId } from '@/types/health';
 import { envById } from '@/lib/environments';
-import { zoneForFlag } from '@/lib/flagZone';
+import { zoneLevels } from '@/lib/zoneLevels';
 
 export function useNow(intervalMs = 500) {
   const [now, setNow] = useState(() => Date.now());
@@ -47,15 +47,10 @@ export function useDashboard() {
   const fresh = freshnessOf(lastTickAt, now);
 
   const zoneStatus = useMemo(() => {
-    const out = {} as Record<ZoneId, TriageStatus>;
-    for (const z of ZONE_IDS) out[z] = result.zones[z].status;
-    if (tick && fresh.state !== 'lost') {
-      for (const f of tick.activeFlags) {
-        const z = zoneForFlag(f);
-        out[z] = worst(out[z], f.severity === 'critical' ? 'red' : 'yellow');
-      }
-    }
-    return out;
+    const fallback = {} as Record<ZoneId, TriageStatus>;
+    for (const z of ZONE_IDS) fallback[z] = result.zones[z].status;
+    const liveTick = fresh.state !== 'lost' ? tick : null;
+    return zoneLevels(liveTick, fallback);
   }, [result, tick, fresh.state]);
 
   return { astronaut, env, log, history, result, scores, tick, fresh, zoneStatus, now };
