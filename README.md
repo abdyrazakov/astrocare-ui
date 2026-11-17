@@ -2,6 +2,10 @@
 
 **NASA Space Apps Challenge 2026 — "Create Health Monitoring Software for Astronauts on Space Missions"**
 
+Fork of [Kwandiye/astrocare](https://github.com/Kwandiye/astrocare), adapted to consume the **AstroCare brain**
+(`astro-brain`, a separate Python backend) as the single source of truth for status, body-zone colours, plans
+and likely conditions, instead of computing them only in the browser.
+
 Offline-first crew health monitoring built around an interactive **3D Digital Twin** of the astronaut.
 Body zones are colour-coded by status. Clicking a zone answers the five questions from the challenge brief and gives a step-by-step protocol.
 
@@ -12,18 +16,38 @@ Body zones are colour-coded by status. Clicking a zone answers the five question
 ```bash
 npm install
 npm run dev          # http://localhost:3000
-npm test             # 37 unit tests (triage engine, hard triggers, trends, brain contract)
+npm test             # unit tests (triage engine, hard triggers, trends, brain v0.6 contract, zone colours)
 npm run build
 ```
 
-Optional backend "brain" over WebSocket:
+## Brain connection
+
+The brain (`astro-brain`) is a separate Python project that scores raw vitals into the `BrainTick` contract
+(`src/types/brain.ts`) and streams it to this app over WebSocket. **When connected, the brain is the single
+source of truth** for `alertLevel`, body-zone colours (`bodySystems`), the exercise/nutrition plans (`plans`)
+and the likely-conditions list (`likelyConditions`) — the in-browser triage engine (`src/lib/triageEngine.ts`)
+only computes a local fallback with the same 3 alert levels while no brain is connected.
 
 ```bash
-npm run mock-brain                                   # ws://localhost:8787, replays green → yellow → red
+# .env.local (see .env.example)
+NEXT_PUBLIC_BRAIN_WS_URL=ws://localhost:8787    # BrainTick JSON over WebSocket (default)
+NEXT_PUBLIC_BRAIN_HTTP_URL=http://localhost:8765 # brain HTTP API: /ask, /report, /log (next phase — not yet called by this app)
+```
+
+Run the real brain (from the `astro-brain` checkout):
+
+```bash
+python -m astro_brain.dashboard --ws-port 8787
+```
+
+Or, without the real brain, replay real brain output captured from it:
+
+```bash
+npm run mock-brain                                   # ws://localhost:8787, replays real brain ticks green → yellow → red
 NEXT_PUBLIC_BRAIN_WS_URL=ws://localhost:8787 npm run dev
 ```
 
-If no backend is reachable, the app switches to an in-browser mock automatically and shows a **MOCK DATA** badge. The mock uses the same contract.
+If no backend is reachable, the app switches to an in-browser mock automatically and shows a **MOCK DATA** badge. The mock uses the same contract — including the v0.6 fields (`bodySystems`, `flagDetails`, `plans`, `doctorSource`) — but computed locally as a fallback, never as the real brain's output.
 
 ## Demo (60 s)
 
@@ -67,9 +91,11 @@ Colour always means the same thing: green normal · amber warning · red critica
 
 ## Architecture
 ```
-src/types        health.ts (domain), brain.ts (zod contract)
-src/data         astronauts, deterministic 4 × 180-day generator with scripted stories, zone knowledge
-src/lib          triageEngine, protocols, scores, trend, brainMock, brainSocket, simulator, environments
+src/types        health.ts (domain), brain.ts (zod contract — brain v0.6)
+src/data         astronauts, deterministic 4 × 180-day generator with scripted stories, zone knowledge,
+                 brainSamples/ (real brain output captured per scenario, used by tests and the mock)
+src/lib          triageEngine, protocols, scores, trend, brainMock, brainSocket, zoneLevels, flagZone,
+                 simulator, environments
 src/store        Zustand (ring buffer of 600 ticks, alerts, audit log, persisted protocol checks)
 src/components   twin/, live/, panel/, scores/, charts/, alerts/, checkin/, views/, layout/
 scripts          mock-brain.ts (ws server)
